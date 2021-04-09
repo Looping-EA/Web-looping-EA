@@ -1,1 +1,46 @@
-<p>register works!</p>
+<body>
+    <!-- REGISTER BODY 
+        idea of working
+            · central form with 2 inputs
+            · submit button
+    -->
+    <div [ngClass]="'banner-area'">
+        <div class='text-center' [ngClass]="'centered-div'" id='register'>
+            <form class="form-singup justify-content-center" id='singup-form'>
+                <br>
+                <!-- Username -->
+                <label>     Username    </label>
+                <br>
+                <input type="text" #usernameinput id='username' placeholder="Enter a Username">
+                
+                <!-- Email -->
+                <br>
+                <label>       Email     </label>
+                <br>
+                <input type="text" #emailinput id='email' placeholder="Enter an Email">
+                
+                <!-- Full Name -->
+                <br>
+                <label>     Full Name   </label>
+                <br>
+                <input type="text" #fullnameinput id='fullname' placeholder="Enter your Full Name">
+                
+                <!-- Password -->
+                <br>
+                <label>      Password   </label>
+                <br>
+                <input type="text" #passwordinput id='password' placeholder="Enter a Password">
+                
+                <!-- Button -->
+                <br>
+                <br>
+                <button type="button" class="btn btn-outline-info" (click)="registerOnClick()"> Submit </button>
+                
+                <!-- If an user has an account -->
+                <div class="container">
+                    Already have an account? <a routerLink="/login">Sing In</a>.
+                </div>
+            </form>
+        </div>
+    </div>
+</body>

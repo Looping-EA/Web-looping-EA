@@ -1,0 +1,22 @@
+.centered-div{
+    background-color: white;
+
+    height: 400px;
+    width: 300px;
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    margin: auto;
+
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.banner-area{
+    background-image: url(2.jpg);
+}
