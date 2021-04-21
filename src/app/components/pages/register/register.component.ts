@@ -37,12 +37,14 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  registerOnClick(usernameValue:string, emailValue:string, fullnameValue:string, passwordValue:string) : void {
-    
-    
+  registerOnClick() : void {
     if (this.registerForm.valid){
       // GRAB THE FIELDS
-     
+      const username = this.usernameInput?.nativeElement.value;
+      const email = this.emailInput?.nativeElement.value;
+      const pswrd = this.passwordInput?.nativeElement.value;
+      const fullname = this.fullnameInput?.nativeElement.value;
+      
       /*
       MUST CHECK FORMATS:
         - No empty strings
@@ -51,31 +53,31 @@ export class RegisterComponent implements OnInit {
       */
 
       // empty check
-      /*if(usernameValue.contains(' ') || pswrdValue.contains(' ')){
+      if(username.includes(' ') || pswrd.includes(' ')){
         alert('NO FIELD MUST BE LEFT BLANK');
         return;
       }
 
       // length check
-      if(usernameValue.length < 5 || pswrdValue.length < 4){
+      if(username.length < 5 || pswrd.length < 4){
         alert('SOME FIELDS DO NOT MATCH THE REQUIREMENTS');
         return;
       }
 
       // email validator
       const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      if(!re.test(emailValue)){
+      if(!re.test(email)){
         alert('EMAIL HAS NO RIGHT FORMAT');
         return;
-      }*/
+      }
     
       // all successful, send the user to the API
       // GENERATE USER
       const user = {
-        "uname": usernameValue,
-        "email": emailValue,
-        "fullname": fullnameValue,
-        "pswd": passwordValue
+        "uname": username,
+        "email": email,
+        "fullname": fullname,
+        "pswd": pswrd
       } as User;
 
       this.UserService.registerUser(user).subscribe(
