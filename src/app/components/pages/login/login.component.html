@@ -8,7 +8,7 @@
     -->
     <div [ngClass]="'banner-area'">
         <div class='text-center' [ngClass]="'centered-div'" id='login'>
-            <form class="form-singup justify-content-center" id='login-form'>
+            <form [formGroup]= "loginForm" class="form-login justify-content-center" id='login-form'>
                 <br>
                 <!-- Username -->
                 <label>     Username    </label>

@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'; 
 
 @Component({
   selector: 'app-login',
@@ -7,54 +8,74 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-    // Inputs, IMPORTANT!!! type of input must be declared @ the html <input type="----"> 
-    @ViewChild('usernameinput', {static: true}) usernameInput: ElementRef | undefined;
-    @ViewChild('passwordinput', {static: true}) passwordInput: ElementRef | undefined;
+  // Inputs, IMPORTANT!!! type of input must be declared @ the html <input type="----"> 
+  @ViewChild('usernameinput', {static: true}) usernameInput: ElementRef | undefined;
+  @ViewChild('passwordinput', {static: true}) passwordInput: ElementRef | undefined;
 
-  constructor() { }
+  loginForm=new FormGroup({
+    usernameinput: new FormControl('', [Validators.required]),
+    passwordinput: new FormControl('', [Validators.required]),
+  })
+
+  constructor(private FormBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.loginForm = this.FormBuilder.group({
+      usernameinput: new FormControl('', [Validators.required, Validators.minLength(5), this.noSpaces]),
+      passwordinput: new FormControl('', [Validators.required, Validators.minLength(8), this.noSpaces])
+    })
   }
 
   loginOnClick(): void{
 
-    //GRAB THE FIELDS
-    const username = this.usernameInput?.nativeElement.value;
-    const pswrd = this.passwordInput?.nativeElement.value;
+    if(this.loginForm.valid){
 
-    /*
-    MUST CHECK FORMATS:
-      - No empty strings
-      - No spaces in the strings
-          */
+      //GRAB THE FIELDS
+      const username = this.usernameInput?.nativeElement.value;
+      const pswrd = this.passwordInput?.nativeElement.value;
 
-    //EMPTY CHECK 
-    const check = 0;
-    for(let i = 0; i < username.length; i++){
-      if(username.charAt(i) == " "){
-        alert('Fill the blanks properly');
-      return;
+      /*
+      MUST CHECK FORMATS:
+        - No empty strings
+            */
+
+      //EMPTY CHECK 
+      if(username.includes(' ') || pswrd.includes(' ')){
+        alert('NO FIELD MUST BE LEFT BLANK');
+        return;
       }
-    }
 
-    //SPACE CHECK
-    for(let i = 0; i < pswrd.length; i++){
-      if(pswrd.charAt(i) == " "){
-        alert('Fill the blanks properly');
-      return;
+      //SEND THE USER TO THE API
+
+      const user = {
+        "uname": username,
+        "pswd": pswrd
       }
-    }
-    if(username == "" || pswrd == ""){
-      alert('Fill the blanks properly');
-      return;
-    }
 
-    //SEND THE USER TO THE API
+      /*this.UserService.loginUser(user).subscribe(
+        (response) =>{
+          alert(`${response.uname} welcome`);
+        },
+        (error) =>{
+          alert(`Try again`);
+        }
+      );*/
 
-    //MATCH THE USER
+    }
+    else{
+      //SOMETHING IS WRONG
+      console.log("Do it better");
+      alert('Fill the blanks correctly');
+    }
     
 
 
+  }
+
+  public noSpaces(control: FormControl){
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
   }
 
 }
