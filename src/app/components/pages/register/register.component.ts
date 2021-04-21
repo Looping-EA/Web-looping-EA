@@ -72,7 +72,7 @@ export class RegisterComponent implements OnInit {
         alert(`User registered: ${response.uname}`);
       },
       (error) =>{
-        alert(`${error.body.message}`);
+        alert(`11`);
       }
     );
     
