@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from './../../../shared/interfaces/user.interface';
 import { UserService } from './../../../shared/services/user.service';
 
@@ -16,7 +16,8 @@ export class RegisterComponent implements OnInit {
   @ViewChild('fullnameinput', {static: true}) fullnameInput: ElementRef | undefined;
   @ViewChild('passwordinput', {static: true}) passwordInput: ElementRef | undefined;
 
-  constructor(private UserService: UserService) { }
+  constructor(private UserService: UserService, private FormBuilder: FormBuilder) {
+   }
 
   registerForm=new FormGroup({
     uusernameinput: new FormControl('', [Validators.required]),
@@ -26,6 +27,12 @@ export class RegisterComponent implements OnInit {
   })
   
   ngOnInit(): void {
+    this.registerForm = this.FormBuilder.group({
+      usernameinput: new FormControl(''),
+      emailinput: new FormControl(''),
+      fullnameinput: new FormControl(''),
+      passwordinput: new FormControl('')
+    })
   }
 
   registerOnClick() : void {
@@ -75,14 +82,14 @@ export class RegisterComponent implements OnInit {
         "pswd": pswrd
       } as User;
 
-    this.UserService.registerUser(user).subscribe(
-      (response) =>{
-        alert(`User registered: ${response.uname}`);
-      },
-      (error) =>{
-        alert(`11`);
-      }
-    );
-    
+      this.UserService.registerUser(user).subscribe(
+        (response) =>{
+          alert(`User registered: ${response.uname}`);
+        },
+        (error) =>{
+          alert(`11`);
+        }
+      );
+    }
   }
 }
