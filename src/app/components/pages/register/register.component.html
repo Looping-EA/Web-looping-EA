@@ -11,30 +11,30 @@
                 <!-- Username -->
                 <label>     Username    </label>
                 <br>
-                <input type="text" #usernameinput id='username' placeholder="Enter a Username">
+                <input required type="text" formControlName="usernameinput" #usernameinput id='username' placeholder="Enter a Username">
                 
                 <!-- Email -->
                 <br>
                 <label>       Email     </label>
                 <br>
-                <input type="text" #emailinput id='email' placeholder="Enter an Email">
+                <input required type="text" formControlName="emailinput" #emailinput id='email' placeholder="Enter an Email">
                 
                 <!-- Full Name -->
                 <br>
                 <label>     Full Name   </label>
                 <br>
-                <input type="text" #fullnameinput id='fullname' placeholder="Enter your Full Name">
+                <input required type="text" formControlName="fullnameinput" #fullnameinput id='fullname' placeholder="Enter your Full Name">
                 
                 <!-- Password -->
                 <br>
                 <label>      Password   </label>
                 <br>
-                <input type="text" #passwordinput id='password' placeholder="Enter a Password">
+                <input required type="text" formControlName="passwordinput" #passwordinput id='password' placeholder="Enter a Password">
                 
                 <!-- Button -->
                 <br>
                 <br>
-                <button type="button" class="btn btn-outline-info" (click)="registerOnClick()"> Submit </button>
+                <button type="button" class="btn btn-outline-info" (click)="registerOnClick(usernameinput.value, emailinput.value, fullnameinput.value, passwordinput.value)"> Submit </button>
                 
                 <!-- If an user has an account -->
                 <div class="container">
