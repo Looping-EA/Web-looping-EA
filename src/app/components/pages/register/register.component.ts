@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private UserService: UserService) { }
 
-  logInForm=new FormGroup({
+  registerForm=new FormGroup({
     uusernameinput: new FormControl('', [Validators.required]),
     emailinput: new FormControl('', [Validators.required]),
     passwordinput: new FormControl('', [Validators.required]),
@@ -64,7 +64,7 @@ export class RegisterComponent implements OnInit {
       alert('EMAIL HAS NO RIGHT FORMAT');
       return;
     }*/
-    if (this.logInForm.valid){
+    if (this.registerForm.valid){
       // all successful, send the user to the API
 
       // GENERATE USER
