@@ -15,9 +15,10 @@ export class RegisterComponent implements OnInit {
   @ViewChild('emailinput', {static: true}) emailInput: ElementRef | undefined;
   @ViewChild('fullnameinput', {static: true}) fullnameInput: ElementRef | undefined;
   @ViewChild('passwordinput', {static: true}) passwordInput: ElementRef | undefined;
+  
   registerForm=new FormGroup({
     usernameinput: new FormControl('', [Validators.required]),
-    emailinput: new FormControl('', [Validators.required]),
+    emailinput: new FormControl('', [Validators.required, Validators.email]),
     passwordinput: new FormControl('', [Validators.required]),
     fullnameinput: new FormControl('',[Validators.required])
   })
@@ -30,7 +31,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.registerForm = this.FormBuilder.group({
       usernameinput: new FormControl('', Validators.required),
-      emailinput: new FormControl('', Validators.required),
+      emailinput: new FormControl('', [Validators.required, Validators.email]),
       fullnameinput: new FormControl('', Validators.required),
       passwordinput: new FormControl('', Validators.required)
     })
