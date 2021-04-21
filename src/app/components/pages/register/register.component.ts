@@ -30,10 +30,10 @@ export class RegisterComponent implements OnInit {
   
   ngOnInit(): void {
     this.registerForm = this.FormBuilder.group({
-      usernameinput: new FormControl('', Validators.required),
-      emailinput: new FormControl('', [Validators.required, Validators.email]),
+      usernameinput: new FormControl('', [Validators.required, Validators.minLength(5), this.noSpaces]),
+      emailinput: new FormControl('', [Validators.required, Validators.email, this.noSpaces]),
       fullnameinput: new FormControl('', Validators.required),
-      passwordinput: new FormControl('', Validators.required)
+      passwordinput: new FormControl('', [Validators.required, Validators.minLength(8), this.noSpaces])
     })
   }
 
@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
       const email = this.emailInput?.nativeElement.value;
       const pswrd = this.passwordInput?.nativeElement.value;
       const fullname = this.fullnameInput?.nativeElement.value;
-      
+
       /*
       MUST CHECK FORMATS:
         - No empty strings
@@ -55,12 +55,6 @@ export class RegisterComponent implements OnInit {
       // empty check
       if(username.includes(' ') || pswrd.includes(' ')){
         alert('NO FIELD MUST BE LEFT BLANK');
-        return;
-      }
-
-      // length check
-      if(username.length < 5 || pswrd.length < 4){
-        alert('SOME FIELDS DO NOT MATCH THE REQUIREMENTS');
         return;
       }
 
@@ -89,8 +83,15 @@ export class RegisterComponent implements OnInit {
         }
       );
     }
-    else { 
+    else {
+      // RESALTAR O AVISAR AL USUARIO, QUE EL CAMPO NO SE PUEDE DEJAR VACIO.
       console.log("mal"); 
     }
+  }
+
+  public noSpaces(control: FormControl){
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
   }
 }
