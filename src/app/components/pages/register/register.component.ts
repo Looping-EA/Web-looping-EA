@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from './../../../shared/interfaces/user.interface';
 import { UserService } from './../../../shared/services/user.service';
 
@@ -17,6 +18,13 @@ export class RegisterComponent implements OnInit {
 
   constructor(private UserService: UserService) { }
 
+  logInForm=new FormGroup({
+    uusernameinput: new FormControl('', [Validators.required]),
+    emailinput: new FormControl('', [Validators.required]),
+    passwordinput: new FormControl('', [Validators.required]),
+    fullnameinput: new FormControl('',[Validators.required])
+  })
+  
   ngOnInit(): void {
   }
 
@@ -38,7 +46,7 @@ export class RegisterComponent implements OnInit {
     */
 
     // empty check
-    if(username == "" || email == "" || fullname == "" || pswrd == ""
+    /*if(username == "" || email == "" || fullname == "" || pswrd == ""
     || username == " " || email == " " || fullname == " " || pswrd == " "){
       alert('NO FIELD MUST BE LEFT BLANK');
       return;
@@ -55,26 +63,28 @@ export class RegisterComponent implements OnInit {
     if(!re.test(email)){
       alert('EMAIL HAS NO RIGHT FORMAT');
       return;
+    }*/
+    if (this.logInForm.valid){
+      // all successful, send the user to the API
+
+      // GENERATE USER
+      const user = {
+        "uname": username,
+        "email": email,
+        "fullname": fullname,
+        "pswd": pswrd
+      } as User;
+
+      this.UserService.registerUser(user).subscribe(
+        (response) =>{
+          alert(`User registered: ${response.uname}`);
+        },
+        (error) =>{
+          alert(`${error.body.message}`);
+        }
+      );
     }
-
-    // all successful, send the user to the API
-
-    // GENERATE USER
-    const user = {
-      "uname": username,
-      "email": email,
-      "fullname": fullname,
-      "pswd": pswrd
-    } as User;
-
-    this.UserService.registerUser(user).subscribe(
-      (response) =>{
-        alert(`User registered: ${response.uname}`);
-      },
-      (error) =>{
-        alert(`${error.body.message}`);
-      }
-    );
-    
+    else 
+    console.log("mal zorra");
   }
 }
