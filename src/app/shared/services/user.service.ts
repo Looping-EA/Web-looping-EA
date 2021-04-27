@@ -18,6 +18,6 @@ export class UserService {
 
   // login the user
   loginUser(user: User): Observable<User>{
-    return this.http.post<User>(`${environment.baseUrlAPI}/users/register`, user, this.httpOptions);
+    return this.http.post<User>(`${environment.baseUrlAPI}/users/login`, user, this.httpOptions);
   }
 }
