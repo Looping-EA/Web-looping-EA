@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'; 
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { User } from './../../../shared/interfaces/user.interface';
+import { UserService } from './../../../shared/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,7 @@ export class LoginComponent implements OnInit {
     passwordinput: new FormControl('', [Validators.required]),
   })
 
-  constructor(private FormBuilder: FormBuilder) { }
+  constructor(private UserService: UserService, private FormBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.loginForm = this.FormBuilder.group({
@@ -50,16 +52,16 @@ export class LoginComponent implements OnInit {
       const user = {
         "uname": username,
         "pswd": pswrd
-      }
+      } as User;
 
-      /*this.UserService.loginUser(user).subscribe(
+      this.UserService.loginUser(user).subscribe(
         (response) =>{
           alert(`${response.uname} welcome`);
         },
         (error) =>{
           alert(`Try again`);
         }
-      );*/
+      );
 
     }
     else{
