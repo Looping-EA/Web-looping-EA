@@ -27,4 +27,8 @@ export class UserService {
       const user = {uname:uname};
       return this.http.post<User>(`${environment.baseUrlAPI}/users/delete`,user, this.httpOptions);
   }
+  // login the user
+  loginUser(user: User): Observable<User>{
+    return this.http.post<User>(`${environment.baseUrlAPI}/users/login`, user, this.httpOptions);
+  }
 }

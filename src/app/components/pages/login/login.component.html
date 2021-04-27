@@ -1,1 +1,43 @@
-<p>login works!</p>
+<body>
+    <!-- LOGIN BODY 
+        idea of working
+            · central form with 2 inputs: username & password
+            · submit button: login
+            · create an account button
+            · recover password button
+    -->
+    <div [ngClass]="'banner-area'">
+        <div class='text-center' [ngClass]="'centered-div'" id='login'>
+            <form [formGroup]= "loginForm" class="form-login justify-content-center" id='login-form'>
+                <br>
+                <!-- Username -->
+                <label>     Username    </label>
+                <br>
+                <input type="text" #usernameinput id='username' placeholder="Enter a Username">
+                
+                <!-- Password -->
+                <br>
+                <br>
+                <label>      Password   </label>
+                <br>
+                <input type="text" #passwordinput id='password' placeholder="Enter a Password">
+
+                <!-- LOG IN Button -->
+                <br>
+                <br>
+                <button type="button" class="btn btn-outline-info" (click)="loginOnClick()"> LOG IN </button>
+
+                <br>
+
+                <!-- If a user do not remember the password -->
+                <div class="container">
+                    <a routerLink="/login">I do not remember my password</a>
+                </div>
+                <!-- If a user do not have an account -->
+                <div class="container">
+                    <a routerLink="/register">I do not have an account</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
