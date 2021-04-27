@@ -1,44 +1,49 @@
 <body>
-    <!-- REGISTER BODY 
-        idea of working
-            · central form with 2 inputs
-            · submit button
-    -->
     <div [ngClass]="'banner-area'">
-        <div class='text-center' [ngClass]="'centered-div'" id='register'>
-            <form [formGroup]= "registerForm"  class="form-singup justify-content-center" id='singup-form'>
+        <div [ngClass]="'centered-div'" class="text-center">
+            <form [formGroup]="registerForm" class="form-singup justify-content-center">
                 <br>
-                <!-- Username -->
-                <label>     Username    </label>
+                <label> Username </label>
                 <br>
-                <input required type="text" formControlName="usernameinput" #usernameinput id='username' placeholder="Enter a Username">
+                <input type="text" id="username" placeholder="Enter a Username..." formControlName="username" required>
+
+                <br>
+                <label> Email </label>
+                <br>
+                <input type="text" id="email" placeholder="Enter an Email..." formControlName="email" required>
+
+                <br>
+                <label> Full Name </label>
+                <br>
+                <input type="text" id="fullname" placeholder="Enter your Full Name..." formControlName="fullname" required>
+
+                <br>
+                <label> Password </label>
+                <br>
+                <input type="password" id="password" placeholder="Enter a Password..." formControlName="password" required>
+                <br>
+                <br>
+                <button type="submit" class="btn btn-outline-info" (click)="onSubmit()"> Submit </button>
+                <br>
                 
-                <!-- Email -->
-                <br>
-                <label>       Email     </label>
-                <br>
-                <input required type="text" formControlName="emailinput" #emailinput id='email' placeholder="Enter an Email">
-                
-                <!-- Full Name -->
-                <br>
-                <label>     Full Name   </label>
-                <br>
-                <input required type="text" formControlName="fullnameinput" #fullnameinput id='fullname' placeholder="Enter your Full Name">
-                
-                <!-- Password -->
-                <br>
-                <label>      Password   </label>
-                <br>
-                <input required type="text" formControlName="passwordinput" #passwordinput id='password' placeholder="Enter a Password">
-                
-                <!-- Button -->
-                <br>
-                <br>
-                <button type="button" class="form-control" class="btn btn-outline-info" (click)="registerOnClick()"> Submit </button>
-                
-                <!-- If an user has an account -->
                 <div class="container">
-                    Already have an account? <a routerLink="/login">Sign In</a>.
+                    <p>Already have an account? <a routerLink='/login'>Sign In</a>.</p>
+                </div>
+                <br>
+                <div *ngIf="formControls.username.invalid && formControls.username.touched">
+                    <div *ngIf="formControls.username.errors?.minlength" class="alert alert-danger"> Name must be at least 5 characters.</div>
+                </div>
+                <div *ngIf="formControls.password.invalid && formControls.password.touched">
+                    <div *ngIf="formControls.password.errors?.minlength" class="alert alert-danger"> Password must be at least 8 characters.</div>
+                </div>
+                <div *ngIf="formControls.email.invalid && formControls.email.touched">
+                    <div *ngId="formControls.email.errors?.email" class="alert alert-danger">Email must have email formatting</div>
+                </div>
+                <div *ngIf="formControls.username.touched || formControls.password.touched || formControls.email.touched">
+                    <div *ngIf="formControls.email.errors?.required || 
+                    formControls.username.errors?.required || formControls.password.errors?.required || formControls.fullname.errors?.required" class="alert alert-danger">
+                        Must complete the required options.
+                    </div>
                 </div>
             </form>
         </div>
